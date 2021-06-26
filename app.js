@@ -4,9 +4,10 @@ const app = express();
 const helmet = require ('helmet');
 const bodyParser = require('body-parser');
 const path = require('path');
-const limiter = require("./middleware/limiter");
+
 const userRoutes = require('./routes/user');
 const sauceRoutes = require('./routes/sauce');
+
 
 require('dotenv').config();
 mongoose.connect(process.env.DB_URI,
@@ -25,7 +26,9 @@ mongoose.connect(process.env.DB_URI,
   });
   
   app.use(helmet());
-  app.use("/api/auth", limiter);
+
+ 
+  
   app.use('/images', express.static(path.join(__dirname, 'images')));
   app.use('/api/auth', userRoutes);
   app.use('/api/sauces', sauceRoutes);
